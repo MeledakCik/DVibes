@@ -10,14 +10,8 @@ import {
 import { loadHomeFeed, loadSearchResult, saveHomeFeed, saveSearchResult } from '@/lib/offline/feed-cache';
 import { getStoredLyrics, storeLyrics } from '@/lib/offline/lyrics-cache';
 import { isOffline } from '@/lib/store/network-store';
-import { useDownloadsStore } from '@/lib/store/downloads-store';
-import { useOfflineStore } from '@/lib/store/offline-store';
+import { useDownloadsStore, useOfflineStore } from '@/lib/store/downloads-store';
 import { useLibraryStore } from '@/lib/store/library-store';
-
-/**
- * Client facade used by the UI. Everything runs on the device without an app server.
- * Offline, it falls back to on-device caches, downloaded tracks, and imported local files.
- */
 
 interface CachedStream {
   value: StreamPayload;
@@ -155,7 +149,6 @@ export async function searchTracks(query: string): Promise<SearchPayload> {
 
   try {
     const data = await searchCatalog(query, 40);
-    // Prepend any matching imported local tracks so user's own files are always findable
     const localMatches = searchLocal(query).tracks.filter((t) => t.isLocalFile);
     if (localMatches.length) {
       const seen = new Set(localMatches.map((t) => t.videoId));
@@ -210,7 +203,6 @@ export async function fetchLyrics(
   track: Pick<Track, 'videoId' | 'title' | 'artist' | 'duration'>,
   options: { force?: boolean } = {}
 ): Promise<LyricsPayload> {
-  // 1. Check user-imported custom LRC / lyrics first!
   const customLyrics = useOfflineStore.getState().customLyrics[track.videoId];
   if (customLyrics) {
     return customLyrics;

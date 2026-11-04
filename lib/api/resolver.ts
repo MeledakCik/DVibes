@@ -2,14 +2,14 @@ import type { ResolvedStream, StreamCandidate } from '@/lib/types';
 import { TtlCache } from './cache';
 import { isYouTubeVideoId } from '@/lib/utils';
 import { isNative } from '@/lib/native/platform';
-import { resolvePiped } from './piped';
-import { resolveInvidious } from './invidious';
-import { resolveInnerTube } from './innertube';
 import {
   resolveAudiusStream,
   resolveFallbackByMeta,
-  resolveItunesStream
-} from './audius';
+  resolveItunesStream,
+  resolvePiped
+} from './piped';
+import { resolveInvidious } from './invidious';
+import { resolveInnerTube } from './innertube';
 
 const ONE_HOUR = 60 * 60 * 1000;
 const streamCache = new TtlCache<ResolvedStream>(ONE_HOUR, 300);
@@ -32,18 +32,6 @@ export interface ResolveOptions {
   directStreamUrl?: string;
 }
 
-/**
- * Multi-layer stream resolver with candidate pooling:
- * - For `audius-*` and `itunes-*` track IDs, resolves directly from Audius/iTunes.
- * - For YouTube video IDs:
- *   - Inside the native Tauri shell (`isNative()`), tries `InnerTube` FIRST
- *     (direct on-device YouTube API signed for the user's own IP), then `Piped`,
- *     then `Invidious`.
- *   - In a normal browser, tries `Piped` → `Invidious` → `InnerTube`.
- *   - Also collects backup stream candidates so if the primary URL is rejected by
- *     `<audio>`, the player automatically fails over to the next candidate or
- *     caches via Rust.
- */
 export async function resolveStream(
   videoId: string,
   options: ResolveOptions = {}
@@ -59,7 +47,6 @@ export async function resolveStream(
   if (existing) return { stream: await existing, cached: false };
 
   const task = (async () => {
-    // 1. Direct Audius or iTunes track IDs
     if (videoId.startsWith('audius-')) {
       const stream = await resolveAudiusStream(videoId);
       streamCache.set(videoId, stream);
@@ -92,8 +79,6 @@ export async function resolveStream(
     const attempts: string[] = [];
     const resolvedStreams: ResolvedStream[] = [];
 
-    // Order providers intelligently: in Tauri native, InnerTube is fastest and signed
-    // for the user's IP. In browser, Piped/Invidious avoid browser CORS on youtubei.
     const steps: Array<{ name: string; run: () => Promise<ResolvedStream> }> = isNative()
       ? [
           { name: 'innertube', run: () => resolveInnerTube(videoId) },
@@ -110,9 +95,6 @@ export async function resolveStream(
       try {
         const result = await step.run();
         resolvedStreams.push(result);
-        // Once we have a primary stream, also kick off ONE backup provider with a short
-        // timeout if we only have a single source, or break immediately if we have multiple
-        // candidates.
         if (resolvedStreams.length >= 1) {
           break;
         }
@@ -121,8 +103,6 @@ export async function resolveStream(
       }
     }
 
-    // If primary succeeded, also try to gather backup candidates from remaining steps in parallel
-    // (best-effort, capped at 1800ms) so `<audio>` has cross-provider failover URLs ready.
     if (resolvedStreams.length > 0) {
       const primary = resolvedStreams[0];
       const remainingSteps = steps.filter((s) => s.name !== primary.provider);
@@ -167,8 +147,6 @@ export async function resolveStream(
       return merged;
     }
 
-    // Final safety net: if YouTube/Piped/Invidious all failed and we know the song's
-    // title/artist, try resolving a matching stream from Audius / iTunes.
     if (options.title) {
       try {
         const fallback = await resolveFallbackByMeta(videoId, options.title, options.artist);

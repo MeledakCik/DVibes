@@ -1,4 +1,4 @@
-import { applyAudioElementTuning, type TuningHz } from '@/lib/api/native-bridge';
+import { applyAudioElementTuning, type TuningHz } from '@/lib/native/platform';
 
 let audioElement: HTMLAudioElement | null = null;
 let currentTuning: TuningHz = 440;

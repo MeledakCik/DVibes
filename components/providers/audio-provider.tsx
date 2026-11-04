@@ -6,23 +6,22 @@ import {
   resolveStreamClient,
   ApiClientError
 } from '@/lib/api/client';
-import { resolveFallbackByMeta } from '@/lib/api/audius';
+import { resolveFallbackByMeta } from '@/lib/api/piped';
 import {
   acquirePlaybackKeepAlive,
   applyAudioElementTuning,
   cacheRemoteStreamNative,
+  isNative,
   releasePlaybackKeepAlive
-} from '@/lib/api/native-bridge';
+} from '@/lib/native/platform';
 import {
   registerAudioElement,
   seekAudio,
   setAudioTuning,
   setAudioVolume
 } from '@/lib/audio-element';
-import { isNative } from '@/lib/native/platform';
 import { useCurrentTrack, usePlayerStore } from '@/lib/store/player-store';
-import { localAudioUrl, useDownloadsStore } from '@/lib/store/downloads-store';
-import { useOfflineStore } from '@/lib/store/offline-store';
+import { localAudioUrl, useDownloadsStore, useOfflineStore } from '@/lib/store/downloads-store';
 import { isOffline, startNetworkWatcher } from '@/lib/store/network-store';
 import { useSettingsStore } from '@/lib/store/settings-store';
 import type { StreamCandidate } from '@/lib/types';
@@ -57,13 +56,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const downloadsReady = useDownloadsStore((state) => state.ready);
   const tuningHz = useSettingsStore((state) => state.tuningHz);
 
-  // Network watcher + offline library & vault bootstrap.
   useEffect(() => {
     startNetworkWatcher();
     void useDownloadsStore.getState().init();
   }, []);
 
-  // Register the single HTMLAudioElement used by the whole app.
   useEffect(() => {
     registerAudioElement(audioRef.current);
     return () => registerAudioElement(null);
@@ -77,7 +74,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setAudioTuning(tuningHz);
   }, [tuningHz]);
 
-  // Acquire/release WakeLock & mobile background audio keep-alive.
   useEffect(() => {
     if (isPlaying && status === 'ready') {
       void acquirePlaybackKeepAlive();
@@ -86,7 +82,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isPlaying, status]);
 
-  // Keep playback alive if mobile OS briefly pauses WebView on screen lock.
   useEffect(() => {
     const onVisibilityChange = () => {
       const audio = audioRef.current;
@@ -136,7 +131,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  // Resolve the stream URL whenever a new track or retry request arrives.
   useEffect(() => {
     if (!track) return;
 
@@ -154,7 +148,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     store.setError(null);
 
     const resolveAndPlay = async () => {
-      // 1) User-imported local audio file (IndexedDB vault or Tauri $APPDATA/offline)
       if (track.isLocalFile || track.source === 'local') {
         const vaultUrl = await useOfflineStore.getState().resolveLocalPlayableUrl(track.videoId);
         if (cancelled) return;
@@ -173,7 +166,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // 2) Downloaded track: play the local file, no network involved at all.
       const downloadedUrl = localAudioUrl(track.videoId);
       if (downloadedUrl) {
         const meta = useDownloadsStore.getState().meta[track.videoId];
@@ -181,7 +173,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // 3) Not downloaded and offline: say so clearly instead of spinning.
       if (isOffline()) {
         store.setError(
           'Not saved for offline. Download this track while online, import a local file, or turn offline mode off.'
@@ -189,7 +180,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // 4) Online: resolve through InnerTube / Piped / Invidious / Audius.
       try {
         const stream = await resolveStreamClient(track.videoId, {
           force,
@@ -215,11 +205,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         candidateIndexRef.current = 0;
         const first = candidates[0];
 
-        // When running inside Tauri native and the primary URL is a direct googlevideo.com
-        // stream from InnerTube, WebView's `<audio>` element sends its own Mozilla User-Agent
-        // and Origin header, which googlevideo.com often rejects with 403 Forbidden.
-        // Proactively caching via Rust (`cache_stream_track`) uses the exact InnerTube
-        // User-Agent and 2 MB ranged requests, serving a local `asset://` URL that never 403s!
         if (
           isNative() &&
           (first.provider === 'innertube' || first.url.includes('googlevideo.com'))
@@ -243,7 +228,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
               return;
             }
           } catch {
-            // Fall through and let `<audio>` try the URL or next candidate
+            // Fall through and let <audio> try the URL or next candidate
           }
         }
 
@@ -267,7 +252,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     };
   }, [track?.videoId, playRequestId, retryNonce, downloadsReady]);
 
-  // Play/pause follows the store.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !streamUrl) return;
@@ -289,13 +273,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             usePlayerStore.getState().setError(null);
             return;
           }
-          // Trigger candidate failover via error handler if source was rejected
           audio.dispatchEvent(new Event('error'));
         });
     }
   }, [isPlaying, streamUrl, status]);
 
-  // Native audio events + automatic multi-candidate failover on stream errors.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -356,8 +338,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           const candidates = candidatesRef.current;
           const currentCandidate = candidates[candidateIndexRef.current];
 
-          // 1. If in Tauri native and we haven't tried caching this candidate via Rust yet,
-          // let Rust fetch it with custom User-Agent & ranged requests!
           if (
             isNative() &&
             currentCandidate &&
@@ -386,7 +366,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             }
           }
 
-          // 2. Try the next candidate URL from the pool
           while (candidateIndexRef.current + 1 < candidates.length) {
             candidateIndexRef.current += 1;
             const nextCandidate = candidates[candidateIndexRef.current];
@@ -431,7 +410,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             return;
           }
 
-          // 3. Final fallback: resolve by title/artist on Audius / iTunes
           if (!metaFallbackAttemptedRef.current && currentTrack.title) {
             metaFallbackAttemptedRef.current = true;
             try {
@@ -493,7 +471,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // MediaSession gives us lock-screen / notification controls on mobile & desktop.
   useEffect(() => {
     if (!('mediaSession' in navigator) || !track) return;
 
@@ -573,7 +550,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
-      {/* referrerPolicy="no-referrer" prevents googlevideo/Piped from rejecting localhost/tauri Referer headers */}
       <audio
         ref={audioRef}
         preload="auto"

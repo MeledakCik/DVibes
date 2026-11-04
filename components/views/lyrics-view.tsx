@@ -34,13 +34,13 @@ import {
   X
 } from 'lucide-react';
 import { ApiClientError, fetchLyrics } from '@/lib/api/client';
-import type { AmbientStemId, TuningHz } from '@/lib/api/native-bridge';
+import type { AmbientStemId, TuningHz } from '@/lib/native/platform';
 import { seekAudio } from '@/lib/audio-element';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useArtwork } from '@/hooks/use-artwork';
 import { DownloadButton } from '@/components/download-button';
 import { useLibraryStore } from '@/lib/store/library-store';
-import { useOfflineStore } from '@/lib/store/offline-store';
+import { useOfflineStore } from '@/lib/store/downloads-store';
 import { useCurrentTrack, usePlayerStore } from '@/lib/store/player-store';
 import { useSettingsStore } from '@/lib/store/settings-store';
 import type { LyricLine, LyricsPayload } from '@/lib/types';
@@ -206,7 +206,6 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
     [track]
   );
 
-  // Immediately reflect custom imported LRC when added
   useEffect(() => {
     if (customForTrack) {
       setPayload(customForTrack);
@@ -291,7 +290,6 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
     if (shouldPlay && !isPlaying) togglePlay();
   };
 
-  // Keep the sung line centred, unless the listener is actively reading ahead.
   useEffect(() => {
     if (!autoScroll || activeIndex < 0 || effectiveMode !== 'synced') return;
     if (Date.now() - userScrollAt.current < 3500) return;
@@ -361,7 +359,6 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
 
   return (
     <div className="space-y-5">
-      {/* Hidden .lrc file input for current track */}
       <input
         ref={lrcFileInputRef}
         type="file"
@@ -400,11 +397,9 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
       <VizTabs value={viz} onChange={setViz} timedAvailable={canShowSynced} />
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6 xl:gap-8">
-        {/* Left: spinning vinyl + artwork, resonance spectrum & ambient stems, and line-focus card */}
         <div className="flex w-full flex-col gap-4 lg:col-span-5 lg:sticky lg:top-4 lg:self-start">
           <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px]">
             <div className="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-lavender/25 via-[#8b5cf6]/10 to-sage/10 blur-2xl" />
-            {/* Spinning vinyl disc peeking behind cover sleeve */}
             <div
               className={cn(
                 'pointer-events-none absolute inset-y-4 left-14 right-0 rounded-full border border-white/[0.08] bg-[radial-gradient(circle_at_center,rgba(8,8,11,0.98)_12%,rgba(34,33,40,1)_13%,rgba(14,14,18,1)_40%,rgba(30,29,36,1)_41%,rgba(10,10,14,1)_70%)] opacity-85 shadow-2xl transition-transform duration-700',
@@ -569,7 +564,6 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
           />
         </div>
 
-        {/* Right: the lyric stage */}
         <div className="flex w-full min-w-0 flex-col gap-3 lg:col-span-7">
           <div className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-3 backdrop-blur-md sm:p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -983,7 +977,6 @@ export function LyricsView({ onExplore }: LyricsViewProps) {
         </div>
       </div>
 
-      {/* Modal to Paste or Edit LRC / Plain Lyrics */}
       {showLrcModal && (
         <div
           className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
@@ -1424,10 +1417,6 @@ function LyricsSkeleton() {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Stitch-style extras                                                         */
-/* -------------------------------------------------------------------------- */
-
 function VizTabs({
   value,
   onChange,
@@ -1468,10 +1457,6 @@ function VizTabs({
   );
 }
 
-/**
- * LRC files only carry line timestamps, so the word-by-word fill is an estimate
- * spread evenly across the line's duration.
- */
 function KaraokeText({ text, progress }: { text: string; progress: number }) {
   const parts = text.split(/(\s+)/);
   const wordCount = parts.filter((part) => part.trim()).length || 1;
@@ -1564,7 +1549,6 @@ function ResonanceSpectrum({
         })}
       </div>
 
-      {/* Interactive Ambient Soundscape Layer Pills (from Stitch reference) */}
       <div className="mt-3 grid grid-cols-4 gap-2">
         {QUICK_STEMS.map((stem) => {
           const Icon = stem.icon;

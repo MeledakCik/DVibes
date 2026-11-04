@@ -1,10 +1,15 @@
 import type { SearchPayload, Track, TrackSource } from '@/lib/types';
 import { isNative } from '@/lib/native/platform';
 import { TtlCache } from './cache';
-import { searchPiped, trendingPiped } from './piped';
+import {
+  searchAudius,
+  searchItunes,
+  searchPiped,
+  trendingAudius,
+  trendingPiped
+} from './piped';
 import { searchInvidious, trendingInvidious } from './invidious';
 import { searchInnerTube } from './innertube';
-import { searchAudius, searchItunes, trendingAudius } from './audius';
 
 const searchCache = new TtlCache<SearchPayload>(5 * 60 * 1000, 100);
 const discoverCache = new TtlCache<SearchPayload>(3 * 60 * 1000, 10);
@@ -50,12 +55,6 @@ async function walk(steps: Step[], query: string, limit: number, failure: string
   throw error;
 }
 
-/**
- * Multi-layer search:
- * - In Tauri native, YouTube InnerTube is fast and reliable, backed up by Piped,
- *   Invidious, Audius, and iTunes.
- * - In a plain browser, Piped → Invidious → Audius → iTunes → InnerTube.
- */
 export async function searchCatalog(query: string, limit = 40): Promise<SearchPayload> {
   const normalized = query.trim();
   if (!normalized) throw new Error('Search query is empty');
@@ -93,7 +92,6 @@ export async function searchCatalog(query: string, limit = 40): Promise<SearchPa
   return data;
 }
 
-/** Home feed discovery across YouTube InnerTube, Piped, Invidious, and Audius. */
 export async function discoverCatalog(region = 'US', limit = 30): Promise<SearchPayload> {
   const cacheKey = `${region}::${limit}`;
   const cached = discoverCache.get(cacheKey);

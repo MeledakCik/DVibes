@@ -3,8 +3,7 @@
 import { CloudOff, Wifi } from 'lucide-react';
 import { useNetworkInfo } from '@/lib/store/network-store';
 import { useSettingsStore } from '@/lib/store/settings-store';
-import { useDownloadsStore } from '@/lib/store/downloads-store';
-import { useOfflineStore } from '@/lib/store/offline-store';
+import { useDownloadsStore, useOfflineStore } from '@/lib/store/downloads-store';
 import { cn } from '@/lib/utils';
 
 export function OfflineBanner({ onOpenDownloads }: { onOpenDownloads: () => void }) {

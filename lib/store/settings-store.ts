@@ -7,15 +7,12 @@ import {
   stopAllAmbientStems,
   type AmbientStemId,
   type TuningHz
-} from '@/lib/api/native-bridge';
+} from '@/lib/native/platform';
 import { setAudioTuning } from '@/lib/audio-element';
 
 interface SettingsState {
-  /** User-forced offline mode: never touch the network, play downloads & local imports only. */
   forceOffline: boolean;
-  /** Real playback pitch/tuning frequency (440Hz standard, 432Hz warm sanctuary, 528Hz bright). */
   tuningHz: TuningHz;
-  /** Real procedural Web Audio ambient stem levels (0..100). */
   ambientStems: Record<AmbientStemId, number>;
 
   setForceOffline: (value: boolean) => void;

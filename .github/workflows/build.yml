@@ -23,6 +23,9 @@ jobs:
             args: '--target universal-apple-darwin'
     steps:
       - uses: actions/checkout@v4
+      - name: Clean leftover legacy files if overlaid on old repository
+        shell: bash
+        run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -50,6 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Clean leftover legacy files if overlaid on old repository
+        run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -58,9 +63,15 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
-      - name: Install NDK
-        run: sdkmanager "platforms;android-34" "build-tools;34.0.0" "ndk;27.0.12077973"
+      - name: Install Android SDK Platform 34 & NDK 27 (without deprecated 'tools' package)
+        run: |
+          export ANDROID_HOME="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          SDKMANAGER=$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager | sort -V | tail -n 1)
+          echo "Using sdkmanager at: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" --install "platform-tools" "platforms;android-34" "build-tools;34.0.0" "ndk;27.0.12077973"
+          echo "NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973" >> $GITHUB_ENV
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
@@ -71,8 +82,6 @@ jobs:
       - run: npm run typecheck
       - name: Create Android project
         run: npx tauri android init --ci
-        env:
-          NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
       - name: Add Android WAKE_LOCK & Media Playback permissions for screen-off playback
         run: |
           MANIFEST="src-tauri/gen/android/app/src/main/AndroidManifest.xml"
@@ -81,22 +90,20 @@ jobs:
           fi
       - name: Build APK (debug-signed, langsung bisa di-install)
         run: npx tauri android build --apk --debug
-        env:
-          NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/27.0.12077973
       - uses: actions/upload-artifact@v4
         with:
           name: dvibes-android
           path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
           if-no-files-found: error
 
-  # iOS WAJIB akun Apple Developer (berbayar) untuk signing. Job ini hanya jalan kalau
-  # kamu set repository variable BUILD_IOS=true dan mengisi secrets di README.
   ios:
     name: iOS (.ipa)
     if: ${{ vars.BUILD_IOS == 'true' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Clean leftover legacy files if overlaid on old repository
+        run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -108,6 +115,7 @@ jobs:
         with:
           workspaces: src-tauri
       - run: npm ci
+      - run: npm run typecheck
       - name: Import signing certificate + provisioning profile
         env:
           IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
@@ -129,10 +137,10 @@ jobs:
           cp $PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - run: npx tauri ios init --ci
         env:
-          APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_DEVELOPMENT_TEAM }}
+          APPLE_DEVELOPMENT_TEAM: ${{ secrets.IOS_DEVELOPMENT_TEAM }}
       - run: npx tauri ios build --export-method app-store-connect
         env:
-          APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_DEVELOPMENT_TEAM }}
+          APPLE_DEVELOPMENT_TEAM: ${{ secrets.IOS_DEVELOPMENT_TEAM }}
       - uses: actions/upload-artifact@v4
         with:
           name: dvibes-ios
