@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Sora:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-fixed-variant": "#304d40", "surface-dim": "#131315", "surface-variant": "#353437", "tertiary-fixed-dim": "#aecebd", "secondary-container": "#3e4a5b", "primary-fixed-dim": "#d0c0e1", "error": "#ffb4ab", "on-primary-fixed": "#21172f", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#3c4858", "tertiary-fixed": "#c9ead8", "surface-container-low": "#1b1b1d", "tertiary": "#b2d2c1", "outline-variant": "#49454c", "on-tertiary": "#19362a", "error-container": "#93000a", "on-primary-fixed-variant": "#4d425d", "surface-container": "#201f21", "background": "#131315", "on-surface": "#e5e1e4", "secondary": "#bbc7dc", "on-tertiary-fixed": "#032016", "surface-tint": "#d0c0e1", "secondary-fixed": "#d7e3f8", "on-primary": "#362c45", "on-tertiary-container": "#2b483b", "on-surface-variant": "#cbc4cd", "surface": "#131315", "primary-fixed": "#eddcfe", "primary-container": "#b8a9c9", "surface-container-highest": "#353437", "surface-container-high": "#2a2a2c", "inverse-surface": "#e5e1e4", "surface-container-lowest": "#0e0e10", "on-error": "#690005", "tertiary-container": "#97b6a6", "on-secondary-container": "#adb9cd", "outline": "#948f97", "inverse-on-surface": "#303032", "inverse-primary": "#655975", "on-secondary": "#253141", "surface-bright": "#39393b", "secondary-fixed-dim": "#bbc7dc", "on-primary-container": "#493d58", "primary": "#d4c4e5", "on-secondary-fixed": "#101c2b", "on-background": "#e5e1e4" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-md": "0.75rem", "margin-compact": "1rem", "margin": "1.5rem", "space-lg": "1.25rem", "space-xl": "2rem", "space-sm": "0.5rem", "gutter": "1rem", "gutter-compact": "0.75rem" }, "fontFamily": { "headline-xl": [ "Sora" ], "label-lg": [ "Inter" ], "headline-sm": [ "Sora" ], "body-sm": [ "Inter" ], "headline-lg": [ "Sora" ], "body-md": [ "Inter" ], "label-md": [ "Inter" ], "headline-md": [ "Sora" ], "label-sm": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-xl": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "label-lg": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "500" } ], "headline-sm": [ "1rem", { "lineHeight": "1.5rem", "fontWeight": "500" } ], "body-sm": [ "0.75rem", { "lineHeight": "1.25rem", "fontWeight": "400" } ], "headline-lg": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-md": [ "0.875rem", { "lineHeight": "1.45rem", "fontWeight": "400" } ], "label-md": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "500" } ], "headline-md": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "label-sm": [ "0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.03em", "fontWeight": "500" } ], "body-lg": [ "1rem", { "lineHeight": "1.6rem", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-on-surface antialiased select-none"><aside class="fixed left-0 top-0 bottom-20 w-60 bg-surface-container-low border-r border-outline-variant/30 z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm"><img alt="DVibes App Logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XiQRFHWeg3xvhD_MxU9oshl-hnd6aMx4Cnq44AkOnEdZCSNIKZiF9zb-oLfEaVHKQDI_zSxRaYJyIPZm8iu3oEFPOAYRHIT-LNpcgN-zKnwu7zF4XzVcXy_KXW2tG8sIxOU4eEm_gATGt3_Nf3Z2Gm1-McmNhjrkNXCMrGw9lPfkW3Yl3RJfYAwE6oVxPgKXBfi_nPTs26dLeF7ruZeMs85CI-okj-FfhRQxmvjv6ekA"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">DVibes</span></div><div class="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity"><div class="w-2.5 h-2.5 rounded-full bg-surface-variant hover:bg-error transition-colors"></div><div class="w-2.5 h-2.5 rounded-full bg-surface-variant hover:bg-tertiary transition-colors"></div><div class="w-2.5 h-2.5 rounded-full bg-surface-variant hover:bg-primary-container transition-colors"></div></div></div><div class="px-space-md py-space-md"><nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-primary font-semibold"><a class="flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-colors group" data-path="home" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-105">home</span>Home</a><a class="flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-colors group" data-path="search" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-105">search</span>Search</a><a class="flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-colors group" data-path="your-library" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-105">library_music</span>Your Library</a><a class="flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-colors group" data-path="favorites" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-105">favorite</span>Favorites</a><a class="flex items-center gap-space-md px-space-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-colors group" data-path="recent" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-105">history</span>Recent</a></nav></div><div class="px-space-lg pt-space-xs"><div class="flex items-center justify-between text-outline py-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Playlists</span><button class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-surface-container" type="button"><span class="material-symbols-outlined text-[16px]">add</span></button></div><div class="mt-space-xs flex flex-col gap-1 overflow-y-auto max-h-56"><a class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm truncate transition-colors" data-path="playlist-midnight-coffee" href="#">Midnight Coffee</a><a class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm truncate transition-colors" data-path="playlist-rainy-lo-fi" href="#">Rainy Lo-Fi Sanctuary</a><a class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm truncate transition-colors" data-path="playlist-late-night-coding" href="#">Late Night Coding</a><a class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm truncate transition-colors" data-path="playlist-acoustic-solitude" href="#">Acoustic Solitude</a><a class="px-space-sm py-1.5 rounded text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm truncate transition-colors" data-path="playlist-deep-ambient" href="#">Deep Ambient &amp; Sleep</a></div></div></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest/50"><div class="flex items-center justify-between px-space-sm py-1"><div class="flex items-center gap-space-sm"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Offline Sync</span></div><span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span></div></div></aside><div class="pl-60 pb-20"><header class="fixed top-0 left-60 right-0 h-16 bg-surface/85 backdrop-blur-xl border-b border-outline-variant/20 z-30 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><div class="flex items-center gap-1"><button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button><button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button></div><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span><input class="w-80 h-9 pl-9 pr-12 rounded-full bg-surface-container-low border border-outline-variant/30 text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:border-primary-container transition-colors" placeholder="Search albums, artists, moods..." type="text"/><kbd class="absolute right-3 px-1.5 py-0.5 rounded text-[10px] font-mono bg-surface-variant/50 text-outline border border-outline-variant/40">⌘K</kbd></div></div><div class="flex items-center gap-space-md"><button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">cast</span></button><button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors relative" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span></button><button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">queue_music</span></button><div class="h-5 w-px bg-outline-variant/40 mx-space-xs"></div><button class="flex items-center gap-space-sm pl-1 pr-2 py-1 rounded-full hover:bg-surface-container transition-colors" type="button"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUOYqizHNME0VX76jsK_c04LJuBfMwfshvM1Mv3ibXbLzc91PFH8mJR6XJCTYsO0ykol0fS3EPvthMby0IxjU_a9V-m0l5LamO-_t0KbbxrnS3k5hDa6QGe0jtLhSWxoHIRk8QAf1S_owCHOOd2TTlsiPtUrhU-nYu8IsEY8Opp6TljhAd8O2LZU8GXESKM6SWp8j8O9Zcj_XKrjy_L_3tH2XEaGp148x3LrMl7KK5"/><span class="material-symbols-outlined text-outline text-[16px]">expand_more</span></button></div></header><main class="relative pt-16 w-full px-margin min-h-screen bg-background"><div class="flex flex-col w-full pb-16">
+<!-- Dynamic Sidebar Active State Injection -->
+<script>
+    (function() {
+      const activeNav = document.querySelector('aside nav a[data-path="search"]');
+      if (activeNav) {
+        document.querySelectorAll('aside nav a').forEach(el => {
+          el.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');
+          el.classList.add('text-on-surface-variant');
+        });
+        activeNav.classList.remove('text-on-surface-variant');
+        activeNav.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');
+      }
+    })();
+  </script>
+<!-- Ambient Glow Behind Viewport Top -->
+<div class="relative w-full">
+<div class="absolute -top-10 left-1/4 w-96 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -top-6 right-1/3 w-80 h-44 bg-tertiary/5 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+<!-- Primary Workspace Layout: Main Column + Sonic Palette Companion -->
+<div class="w-full flex flex-col xl:flex-row gap-space-xl items-start">
+<!-- Left / Center Dynamic Exploration Canvas -->
+<div class="flex-1 w-full min-w-0 flex flex-col gap-space-xl">
+<!-- SECTION 1: SEARCH HERMETIC BAR & MICRO-FILTERS -->
+<section class="flex flex-col gap-space-md pt-2">
+<!-- Input Frame -->
+<div class="relative w-full group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-28 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline font-body-lg text-body-lg shadow-sm focus:outline-none focus:bg-surface-container transition-all" id="vibe-search-input" placeholder="Search artists, soundscapes, acoustic field recordings, or sensory vibes..." type="text"/>
+<div class="absolute inset-y-0 right-3 flex items-center gap-1.5 pointer-events-none">
+<kbd class="px-2 py-1 rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm shadow-sm">⌘K</kbd>
+<kbd class="px-2 py-1 rounded bg-surface-variant text-on-surface-variant font-label-sm text-label-sm shadow-sm">/</kbd>
+</div>
+</div>
+<!-- Filter Chips Row -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-nowrap">
+<button class="px-3.5 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md transition-all shadow-sm" type="button">All Frequencies</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" type="button">Ambient &amp; Nature</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" type="button">Lo-Fi &amp; Slow Beats</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" type="button">Acoustic Solitude</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" type="button">Neo-Classical</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-colors" type="button">Binaural &amp; Solfeggio</button>
+</div>
+<!-- Recent Search History Stream -->
+<div class="flex items-center gap-2 pt-1 flex-wrap">
+<span class="font-label-sm text-label-sm text-outline flex items-center gap-1 mr-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+            Recents:
+          </span>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors group">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Nordic rainy forest</span>
+<button class="text-outline hover:text-error transition-colors flex items-center p-0.5" onclick="this.parentElement.remove()" type="button">
+<span class="material-symbols-outlined text-[12px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors group">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">432Hz deep sleep tape</span>
+<button class="text-outline hover:text-error transition-colors flex items-center p-0.5" onclick="this.parentElement.remove()" type="button">
+<span class="material-symbols-outlined text-[12px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors group">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Tokyo lofi rain window</span>
+<button class="text-outline hover:text-error transition-colors flex items-center p-0.5" onclick="this.parentElement.remove()" type="button">
+<span class="material-symbols-outlined text-[12px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low hover:bg-surface-container transition-colors group">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Warm Rhodes piano chill</span>
+<button class="text-outline hover:text-error transition-colors flex items-center p-0.5" onclick="this.parentElement.remove()" type="button">
+<span class="material-symbols-outlined text-[12px]">close</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 2: BROWSE BY MOOD & STATE OF MIND (Atmospheric Grid) -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-4 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Browse by State of Mind</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline tracking-wider uppercase">6 Immersive Resonances</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Mood Card 1: Deep Focus & Flow -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Calm abstract geometric ripples and soft ocean indigo gradients in minimal Nordic ambient light, gentle dust textures, matte aesthetic. Deep blue and lavender tones with whisper-soft shadows." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAqGJQvLI8SaE_yph4tT3k0I4AiYlePamomQz7qBFkkw2j9zuwjiAmbNUKorcXBxLVT-fxJOVcBzftvZMwLKENv2Ck3ARhhVCvVGliQimckFBMdj3pG8d8OqvRIsOxRTHyIISawvvON2o9hc2ocj2QjvTbFQHDKecuwZMQCU_23GNeGzmeG2F4AfaUxepQxm5p82t4cS8q5spxG8QZ3uXtazw4QnhXyLG0XRazwVthh')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/80 text-secondary font-label-sm text-label-sm">Binaural Flow</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright/70 text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-secondary-fixed transition-colors">Deep Focus &amp; Flow</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Steady pulses &amp; low synth</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 78k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mood Card 2: Midnight Sanctuary -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Moody velvet midnight scene of an empty quiet loft at 2am with wet rainy windows, muted lavender neon reflections, deep charcoal architecture, minimal cozy tranquil atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDs-UYP8QUzMiR70RKdTHREtvBhC-m7DZ9vIKxbdqpD4kSJ6Xv0sItbTaqLqUIQ8Jv1gyofPo6NLsyLaazbDvJOy0yZyy_5xLnHLvKOqwQYkr8FjAY2YT7F9hHDiAPg25FZBhl_bn8moWrmS4sciGG-W0EvHNhbmEs2cpdEVaw0LroPdR6IaOt7miDIqhzDZyv2sVa-vbIIE6ax05OmrQTc1qi1MR3G41Tump-fWMGt')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-primary-container/30 text-primary-fixed font-label-sm text-label-sm">Signature Vibe</span>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Midnight Sanctuary</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Slow Rhodes &amp; distant thunder</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 112k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mood Card 3: Rainy Window Pane -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Close up of serene raindrops slowly trickling down a pane of glass overlooking a pale sage forest shrouded in quiet dusk fog, calm minimal film still." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCccE18lCBcPtyxvcE7-r12A27v6HfRrx2-rtQ6HAlar0Rx0X5XZArjvEAREQCFkINUKlZHZyzTT4ZvFmGS9zIaJI5GxLbzc2XnlK1XsfFZp8jhFYCSHlxuZzDp6t-uIQg52d0o_BNhSIEOlbeOAwICJVyJvMy6VFLBLPvHPDEmZoMliuVBUg4sgG6ijdAgT1rjvFRbmn2ybPN0sDmJ0YDckkOn45Zot0WUDvZ_xGn4')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary font-label-sm text-label-sm">Field Audio</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright/70 text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-tertiary transition-colors">Rainy Window Pane</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Slow guitar &amp; pine mist</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 64k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mood Card 4: Morning Awakening -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Soft hazy dawn light pouring over an organic minimalist wooden tea corner, warm steam rising, subtle peach and warm cream daylight, serene stillness." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBQy4QxpgU1rnLPbjUSWV2hfv2vboUltzCG3zgbxMCopD0uw-VYH8dOB-Lviam7-3AS81eE8G6z-15ELr1jv6j2QB3gaaFPtJauj03zO-zp6z_wmzu_BjLOKV4fr-KJEh9zbaJ8mlOmtrL2s2DzKS1wNvemjFwLSL4-ok9B8fDgXi2cyOvfdgzUrb723SVCju9_s7vomYc2eOmDPZWfIQKjdXdxtPj8sBcnr3WdU5WJ')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm">Gentle Rise</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright/70 text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-secondary-fixed transition-colors">Morning Awakening</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Acoustic bells &amp; songbirds</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 45k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mood Card 5: Cosmic Slumber -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Quiet astral deep space nebula with deep charcoal and muted amethyst stardust, subtle vintage film grain, hypnotic infinite calming void." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOmsl6dZ0bQ9LIwAL4w1bRQfrwWg31VUlBd-SnGEaVE6DQClVJ-GErZhBNtVJr7HQ2lVBd_pdnvOw8GxWnj-zBS3XaBmHUfcDUHDCeckWYlSTDG3W6VvhNKlPfOFWfusL7FCTUa55j3bxXEsSenMK16DNk0lgtMmylMzbTZzK0ClTSdB3qRb0FrCxrRlMmy6FrlbRlI9kwI001BA44pAuqXemuHAEXmjiyBI2eUCoV')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/50 text-secondary font-label-sm text-label-sm">Delta Waves</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright/70 text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary-fixed transition-colors">Cosmic Slumber</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Sub-bass drones &amp; tape warmth</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 91k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mood Card 6: Cozy Reading Nook -->
+<div class="group relative h-48 rounded-xl overflow-hidden bg-surface-container cursor-pointer shadow-md transition-all duration-300 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-60" data-alt="Intimate dark timber bookshelf corner with amber desk lamp glow, open linen notebook, ceramic mug, soft bokeh and quiet cozy midnight shadows." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4DR0RddKYZLHxs-TviFn3C_Uwodr7L58v4oah5wJqWvYBF6XqzrFKa3_2dntigTq24WNQWYmKBoXTCVdo1eveQaBG2X88jhgJq1G_MWi9ormfn4TEzIaSnwhy_NEionf7yY6E6cYy_wMju8qH9zM2Ncpq3R1j6OK_tVKL2px9KUm7gEqz0tY2wAKWC8tAPhtS0-OP1lbI1mXrQ7fFBReNDWyF4Ks_0yGaOiPaM0BN')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container/70 to-transparent"></div>
+<div class="relative h-full p-space-lg flex flex-col justify-between z-10">
+<div class="flex justify-between items-start">
+<span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface font-label-sm text-label-sm">Warm Vinyl</span>
+<button class="w-8 h-8 rounded-full bg-surface-bright/70 text-on-surface flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:scale-105 shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Cozy Reading Nook</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span>Tape hiss &amp; mellow upright piano</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[13px]">headphones</span> 53k
+                  </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: SENSORY VIBE FILTERS & ACOUSTIC ENVIRONMENT MATRIX -->
+<section class="bg-surface-container-low rounded-xl p-space-lg flex flex-col gap-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Acoustic Sculpting Engine</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mt-0.5">Tactile Sensory Matrix</h3>
+</div>
+<button class="text-outline hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 py-1 px-2.5 rounded-lg bg-surface-container hover:bg-surface-variant transition-colors" onclick="resetMatrix()" type="button">
+<span class="material-symbols-outlined text-[14px]">refresh</span>
+            Restore Neutral
+          </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg pt-1">
+<!-- Slider 1: Rainfall Intensity -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">water_drop</span>
+                Rainfall Texture
+              </span>
+<span class="font-label-sm text-label-sm text-outline" id="rain-val">Heavy Mist (62%)</span>
+</div>
+<div class="relative flex items-center pt-2">
+<input class="w-full h-1.5 bg-surface-variant rounded-full appearance-none cursor-pointer accent-tertiary" max="100" min="0" oninput="document.getElementById('rain-val').textContent = this.value &lt; 30 ? 'Soft Drizzle' : this.value &lt; 70 ? 'Heavy Mist ('+this.value+'%)' : 'Torrential'" type="range" value="62"/>
+</div>
+<div class="flex justify-between text-[10px] text-outline pt-0.5 font-label-sm">
+<span>Dry Glass</span>
+<span>Downpour</span>
+</div>
+</div>
+<!-- Slider 2: Tape Saturation & Vinyl Hiss -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">radio</span>
+                Tape Saturation
+              </span>
+<span class="font-label-sm text-label-sm text-outline" id="tape-val">Warm Hiss (40%)</span>
+</div>
+<div class="relative flex items-center pt-2">
+<input class="w-full h-1.5 bg-surface-variant rounded-full appearance-none cursor-pointer accent-primary" max="100" min="0" oninput="document.getElementById('tape-val').textContent = this.value == 0 ? 'Clean Digital' : 'Warm Hiss ('+this.value+'%)'" type="range" value="40"/>
+</div>
+<div class="flex justify-between text-[10px] text-outline pt-0.5 font-label-sm">
+<span>Crystal Hi-Fi</span>
+<span>1972 Cassette</span>
+</div>
+</div>
+<!-- Slider 3: Solfeggio / Binaural Tuning -->
+<div class="flex flex-col gap-2 p-space-md rounded-lg bg-surface-container">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+                Harmonic Tuning
+              </span>
+<span class="font-label-sm text-label-sm text-secondary" id="tuning-val">432 Hz Solfeggio</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 pt-2">
+<button class="py-1 rounded bg-surface-container-high hover:bg-surface-variant font-label-sm text-label-sm text-on-surface-variant transition-colors" onclick="setTuning(this, '440 Hz Concert')" type="button">440Hz</button>
+<button class="py-1 rounded bg-secondary-container text-secondary font-label-sm text-label-sm transition-colors" onclick="setTuning(this, '432 Hz Solfeggio')" type="button">432Hz</button>
+<button class="py-1 rounded bg-surface-container-high hover:bg-surface-variant font-label-sm text-label-sm text-on-surface-variant transition-colors" onclick="setTuning(this, '528 Hz Repair')" type="button">528Hz</button>
+</div>
+</div>
+</div>
+<!-- Ambient Layer Toggles -->
+<div class="pt-1 flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-outline">Layer Physical Environments:</span>
+<div class="flex items-center gap-2 flex-wrap">
+<button class="layer-toggle active flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all shadow-sm" onclick="toggleLayer(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary">local_cafe</span>
+<span>Coffee Shop Murmur</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</button>
+<button class="layer-toggle active flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all shadow-sm" onclick="toggleLayer(this)" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">local_fire_department</span>
+<span>Crackling Fireplace</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</button>
+<button class="layer-toggle flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all" onclick="toggleLayer(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">air</span>
+<span>Forest Night Wind</span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-variant"></span>
+</button>
+<button class="layer-toggle flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container text-outline hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all" onclick="toggleLayer(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">thunderstorm</span>
+<span>Distant Thunder</span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-variant"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 4: TRENDING CALM CREATORS & SOUNDSCAPES -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Trending Calm Creators</h3>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">Atmospheric releases curated for evening listening</p>
+</div>
+<button class="font-label-md text-label-md text-primary hover:text-primary-fixed transition-colors flex items-center gap-1" type="button">
+            Explore All 
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Creator Card 1 -->
+<div class="group flex flex-col p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-all duration-200 cursor-pointer shadow-sm">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-variant mb-space-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Minimalist artistic album cover featuring an abstract misty Kyoto temple bamboo courtyard through frosted morning glass, pastel olive and slate lavender tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2DkICFK0QdRpxntgIiqJ0AplxPEawWWSYNgENMhfmPGSwyc5Ig8cdC8IJotHW4XhTH_HR7DPAw94Mlgv7I93SCP2XhT1LkjnZDe3DGDXeZk_Q_dDxa8C9gFpIf79jg5LfqlKZRkbw6g_GhTIs2xv6Bo5LSv_oXBwKe2ZtTHFXbY7I2IOqKfJmmhX4DNAcR3iSTZ6CfV7C1PYa8T0ta0KD8O3GEPaoGrKRiXGAFCvz"/>
+<button class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 shadow-lg hover:scale-105" type="button">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col min-w-0 px-1 pb-1">
+<span class="font-label-lg text-label-lg text-on-surface truncate group-hover:text-primary transition-colors">Echoes of Kyoto</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Komorebi Soundscapes</span>
+<div class="flex items-center justify-between mt-2 pt-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-tertiary text-[10px]">Ambient Lo-Fi</span>
+<span class="text-outline text-[11px]">182k plays</span>
+</div>
+</div>
+</div>
+<!-- Creator Card 2 -->
+<div class="group flex flex-col p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-all duration-200 cursor-pointer shadow-sm">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-variant mb-space-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Atmospheric album artwork of a lonely fjord in northern fog with quiet reflection ripples, soft icy teal and muted indigo color grading, dark ambient style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1E-dCRZlnCa8vaRiP7tGRReC23EnhlXmvQBL0eTkSA3w8Hd_sE8wnty_C-uKVQBXrHpRivBphqzBAChYOo12CJR-PJxlwMRwZTPq0Gcin6mPpZ01VvRchPPSBBMXSlT7P3iyV1ZcsyMrMzmIft0cFotcZqOa4hP5fLGG4LHkD3dZ4fAAITPNOEoN5QI0WRp96ZjZgb8uBGBY-m3LTgK1bmwyOcnAwkxjqjFBrUPqW"/>
+<button class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 shadow-lg hover:scale-105" type="button">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col min-w-0 px-1 pb-1">
+<span class="font-label-lg text-label-lg text-on-surface truncate group-hover:text-primary transition-colors">Northern Fog</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Sylvan Drift</span>
+<div class="flex items-center justify-between mt-2 pt-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-secondary text-[10px]">Deep Chill</span>
+<span class="text-outline text-[11px]">94k plays</span>
+</div>
+</div>
+</div>
+<!-- Creator Card 3 -->
+<div class="group flex flex-col p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-all duration-200 cursor-pointer shadow-sm">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-variant mb-space-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Quiet dusk horizon with soft hazy peach and pastel apricot dusk gradients over gentle rippling lake water, delicate typography vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4fJLcy_X84H7MEpE90f_0CqtI0W7IXN5c4hNcN0iaU4Cyj9i9zTVUCrs3Bgxh6wlU2gRf2-mD_24pUxX6e8LRVATOobXfjswHUDbXa6fSKtFQQfDTbT0HWOc_tiaCuhj7UosXvPDeJ9elQ1uzt16mKRzVWiOgOlnVCk9c-9M0nfr-sRduDBnlSdeZwDKe61NKVDTpGld6AuT7Q5mOHvz6Y2WCoLw7TsHvxiYaTnvS"/>
+<button class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 shadow-lg hover:scale-105" type="button">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col min-w-0 px-1 pb-1">
+<span class="font-label-lg text-label-lg text-on-surface truncate group-hover:text-primary transition-colors">Quiet Dawn</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Aura Sol</span>
+<div class="flex items-center justify-between mt-2 pt-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-primary text-[10px]">Neo-Classical</span>
+<span class="text-outline text-[11px]">130k plays</span>
+</div>
+</div>
+</div>
+<!-- Creator Card 4 -->
+<div class="group flex flex-col p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high transition-all duration-200 cursor-pointer shadow-sm">
+<div class="relative aspect-square w-full rounded-lg overflow-hidden bg-surface-variant mb-space-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Macro vintage cassette tape mechanism spool with warm amber tube illumination and dusty analog warmth aesthetic, cozy bedroom sound production vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFqYE_zLaPTEUdHYxsGBI0OW54jY1JSwGCHEwUUwobyjnCUK9us5CtVi8WK5rMdCLcsjDVvCutZqXPR-YCiBKZBRFAlQ-70o7oMSdpqf1pWfQipqKyd3cTeQbMJxmMTZwLUyZUD2asEgNUPb8owskieiJOeD0EUrE0p0uTh9Ed7DqkoaExmj7CkG3CFi0M4yvvlmGATGPz4UlZuJ7DgGvLS9WFWpi6SSVsvpJ0ZgsR"/>
+<button class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 shadow-lg hover:scale-105" type="button">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col min-w-0 px-1 pb-1">
+<span class="font-label-lg text-label-lg text-on-surface truncate group-hover:text-primary transition-colors">Bedroom Frequencies</span>
+<span class="font-body-sm text-body-sm text-outline truncate">Tape Loom</span>
+<div class="flex items-center justify-between mt-2 pt-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-lowest text-secondary-fixed text-[10px]">Tape Loops</span>
+<span class="text-outline text-[11px]">67k plays</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT PANEL: COMPACT 'EXPLORE COMPANION & SONIC PALETTE' -->
+<aside class="w-full xl:w-80 shrink-0 flex flex-col gap-space-lg">
+<!-- Box 1: Today's Listening Resonance Chart -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Your Listening Vibe</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Today</span>
+</div>
+<!-- Custom Inline Micro Spectrum SVG -->
+<div class="flex items-center justify-center py-2 relative">
+<svg class="w-36 h-36 -rotate-90" viewbox="0 0 100 100">
+<!-- Background track -->
+<circle class="text-surface-variant/40" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-width="8"></circle>
+<!-- Chill segment (70%) -->
+<circle class="text-primary-container" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="238.76" stroke-dashoffset="71.6" stroke-linecap="round" stroke-width="8"></circle>
+<!-- Focus segment (20%) -->
+<circle class="text-tertiary-container" cx="50" cy="50" fill="transparent" r="38" stroke="currentColor" stroke-dasharray="238.76" stroke-dashoffset="191" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">70%</span>
+<span class="font-label-sm text-label-sm text-outline">Deep Chill</span>
+</div>
+</div>
+<!-- Spectrum Breakdown Legend -->
+<div class="flex flex-col gap-2 pt-space-sm mt-1">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="text-on-surface">Midnight Chill</span>
+</div>
+<span class="text-outline font-label-sm">70%</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container"></span>
+<span class="text-on-surface">Focus / Work</span>
+</div>
+<span class="text-outline font-label-sm">20%</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="text-on-surface">Dreamy Slumber</span>
+</div>
+<span class="text-outline font-label-sm">10%</span>
+</div>
+</div>
+</div>
+<!-- Box 2: Suggested Sound Swatches & Palette -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Suggested Sonic Palette</span>
+<span class="material-symbols-outlined text-outline text-[18px]">palette</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mb-space-md">
+          Synthesized from your 11:42 PM session tempo and humidity settings.
+        </p>
+<!-- Color Swatch Circle Row -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container mb-space-md">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container shadow-sm" title="Lavender 432Hz">
+<span class="material-symbols-outlined text-[14px]">nightlight</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm" title="Dusty Blue Ambient">
+<span class="material-symbols-outlined text-[14px]">waves</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-tertiary flex items-center justify-center text-on-tertiary shadow-sm" title="Pale Sage Nature">
+<span class="material-symbols-outlined text-[14px]">forest</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant shadow-sm" title="Warm Tape Analog">
+<span class="material-symbols-outlined text-[14px]">grain</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-medium">Harmonic</span>
+</div>
+<!-- Quick Sound Mix Trigger -->
+<button class="w-full py-2.5 px-space-md rounded-xl bg-primary-container text-on-primary-container hover:bg-primary transition-all flex items-center justify-center gap-2 font-label-lg text-label-lg shadow-md hover:scale-[1.01] active:scale-[0.99]" onclick="triggerMixAlert()" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+          Generate Sanctuary Mix
+        </button>
+</div>
+<!-- Box 3: Quick Sensory Presets Mini-List -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-low shadow-sm">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold mb-space-sm">One-Click Presets</span>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">bedtime</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Late Night Isolation</span>
+<span class="font-body-sm text-body-sm text-outline text-[11px]">Mist + Rhodes + 432Hz</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-tertiary transition-colors text-[20px]">coffee</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Rainy Cafe Corner</span>
+<span class="font-body-sm text-body-sm text-outline text-[11px]">Murmur + Heavy Rain</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-outline group-hover:text-secondary-fixed transition-colors text-[20px]">psychology</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Deep Code Sprint</span>
+<span class="font-body-sm text-body-sm text-outline text-[11px]">Zero beats + Binaural</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Interactive Logic Hook -->
+<script>
+    function setTuning(btn, label) {
+      const container = btn.parentElement;
+      container.querySelectorAll('button').forEach(b => {
+        b.className = 'py-1 rounded bg-surface-container-high hover:bg-surface-variant font-label-sm text-label-sm text-on-surface-variant transition-colors';
+      });
+      btn.className = 'py-1 rounded bg-secondary-container text-secondary font-label-sm text-label-sm transition-colors';
+      document.getElementById('tuning-val').textContent = label;
+    }
+
+    function toggleLayer(btn) {
+      const indicator = btn.querySelector('span:last-child');
+      const icon = btn.querySelector('span:first-child');
+      const isAct = btn.classList.contains('active');
+
+      if (isAct) {
+        btn.classList.remove('active', 'text-on-surface');
+        btn.classList.add('text-outline');
+        indicator.className = 'w-1.5 h-1.5 rounded-full bg-surface-variant';
+      } else {
+        btn.classList.add('active', 'text-on-surface');
+        btn.classList.remove('text-outline');
+        indicator.className = 'w-1.5 h-1.5 rounded-full bg-tertiary';
+      }
+    }
+
+    function resetMatrix() {
+      const rainInput = document.querySelector('input[type="range"]');
+      if (rainInput) {
+        rainInput.value = 50;
+        document.getElementById('rain-val').textContent = 'Heavy Mist (50%)';
+      }
+      const tapeInput = document.querySelectorAll('input[type="range"]')[1];
+      if (tapeInput) {
+        tapeInput.value = 20;
+        document.getElementById('tape-val').textContent = 'Warm Hiss (20%)';
+      }
+    }
+
+    function triggerMixAlert() {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span> Mixing frequencies...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done</span> Mix Playing in Sanctuary';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 2200);
+      }, 900);
+    }
+
+    // Keyboard shortcut handler for search bar
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const input = document.getElementById('vibe-search-input');
+        if (input) input.focus();
+      }
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        const input = document.getElementById('vibe-search-input');
+        if (input) input.focus();
+      }
+    });
+  </script>
+</div></main></div><div class="fixed bottom-0 left-0 right-0 h-20 bg-surface-container-low/95 backdrop-blur-md border-t border-outline-variant/30 z-50 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md w-1/4 min-w-[200px]"><div class="w-14 h-14 rounded-xl bg-surface-container-high border border-outline-variant/20 flex-shrink-0 overflow-hidden flex items-center justify-center"><span class="material-symbols-outlined text-outline text-[28px]">album</span></div><div class="flex flex-col min-w-0 pr-space-sm"><span class="font-label-lg text-label-lg text-on-surface truncate">Late Night Thoughts</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Komorebi Soundscapes</span></div><div class="flex items-center gap-1"><button class="p-1.5 text-primary hover:text-primary-fixed transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">favorite</span></button><button class="p-1.5 text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">match_case</span></button></div></div><div class="flex flex-col items-center gap-1 w-2/4 max-w-xl"><div class="flex items-center gap-space-lg"><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">shuffle</span></button><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">skip_previous</span></button><button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[24px]">play_arrow</span></button><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">skip_next</span></button><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">repeat</span></button></div><div class="w-full flex items-center gap-space-md"><span class="font-body-sm text-body-sm text-outline tabular-nums text-[11px]">02:14</span><div class="relative flex-1 h-[3px] bg-surface-variant rounded-full cursor-pointer group"><div class="absolute left-0 top-0 bottom-0 w-[48%] bg-primary-container rounded-full group-hover:bg-primary transition-colors"></div><div class="absolute left-[48%] -top-1 w-2.5 h-2.5 rounded-full bg-on-surface shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"></div></div><span class="font-body-sm text-body-sm text-outline tabular-nums text-[11px]">04:38</span></div></div><div class="flex items-center justify-end gap-space-md w-1/4 min-w-[200px]"><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">queue_music</span></button><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">speaker_group</span></button><div class="flex items-center gap-space-xs group"><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">volume_up</span></button><div class="w-20 h-[3px] bg-surface-variant rounded-full relative cursor-pointer"><div class="h-full w-3/4 bg-on-surface-variant group-hover:bg-primary transition-colors rounded-full"></div></div></div><button class="text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">fullscreen</span></button></div></div></body></html>

@@ -1,0 +1,12 @@
+{
+  "identifier": "default",
+  "description": "Permissions for the DVibes main window (desktop and mobile).",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "http:default",
+      "allow": [{ "url": "https://*" }, { "url": "https://*:*" }, { "url": "http://*" }, { "url": "http://*:*" }]
+    }
+  ]
+}

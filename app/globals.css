@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: 240 14% 4%;
+  --foreground: 240 12% 94%;
+  --muted: 240 8% 48%;
+  --border: 240 8% 16%;
+  --accent: 255 75% 86%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+html {
+  background: #08080b;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(124, 58, 237, 0.18), transparent 60%),
+    radial-gradient(900px 600px at 88% 0%, rgba(45, 212, 191, 0.09), transparent 55%),
+    radial-gradient(1000px 800px at 50% 110%, rgba(99, 102, 241, 0.08), transparent 60%),
+    #08080b;
+  color: #ececf4;
+  font-feature-settings: 'ss01' on, 'cv11' on;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(196, 181, 253, 0.3);
+  color: #fff;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Native thin scrollbars for the scrollable content column. */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196, 181, 253, 0.22) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(196, 181, 253, 0.18);
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 181, 253, 0.3);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.glass {
+  background: rgba(12, 12, 17, 0.72);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #ffffff 10%, #c4b5fd 55%, #a7f3d0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+}
+
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+
+.eq-bar:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.eq-bar:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+.eq-bar:nth-child(4) {
+  animation-delay: 0.48s;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.32);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

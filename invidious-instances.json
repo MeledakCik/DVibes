@@ -1,0 +1,22 @@
+{
+  "updatedAt": "2026-11-04",
+  "notes": "Invidious fallback layer. Instances rotate automatically with health cooldown; audio URLs use both proxied (?local=true) and direct stream candidates.",
+  "instances": [
+    { "name": "nadeko", "baseUrl": "https://inv.nadeko.net", "enabled": true },
+    { "name": "yewtu", "baseUrl": "https://yewtu.be", "enabled": true },
+    { "name": "f5", "baseUrl": "https://invidious.f5.si", "enabled": true },
+    { "name": "nerdvpn", "baseUrl": "https://invidious.nerdvpn.de", "enabled": true },
+    { "name": "perditum", "baseUrl": "https://invidious.perditum.com", "enabled": true },
+    { "name": "privacyredirect", "baseUrl": "https://invidious.privacyredirect.com", "enabled": true },
+    { "name": "jing", "baseUrl": "https://invidious.jing.rocks", "enabled": true },
+    { "name": "privatecoffee", "baseUrl": "https://invidious.private.coffee", "enabled": true },
+    { "name": "tuxpizza", "baseUrl": "https://inv.tux.pizza", "enabled": true },
+    { "name": "materialio", "baseUrl": "https://invidious.materialio.us", "enabled": true },
+    { "name": "reallyaweso", "baseUrl": "https://invidious.reallyaweso.me", "enabled": true },
+    { "name": "melmac", "baseUrl": "https://iv.melmac.space", "enabled": true },
+    { "name": "einfachzocken", "baseUrl": "https://invidious.einfachzocken.eu", "enabled": true },
+    { "name": "datura", "baseUrl": "https://iv.datura.network", "enabled": true },
+    { "name": "dhus", "baseUrl": "https://invidious.dhus.pro", "enabled": true },
+    { "name": "ggtyler", "baseUrl": "https://iv.ggtyler.dev", "enabled": true }
+  ]
+}

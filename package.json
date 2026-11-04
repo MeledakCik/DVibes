@@ -1,0 +1,48 @@
+{
+  "name": "dvibes",
+  "version": "4.2.0",
+  "private": true,
+  "description": "DVibes — native music player for Android, iOS, macOS & Windows with synced lyrics, local MP3/FLAC/LRC vault & offline mode",
+  "scripts": {
+    "dev": "next dev -p 1420",
+    "build": "next build",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "android:dev": "tauri android dev",
+    "android:build": "tauri android build",
+    "ios:dev": "tauri ios dev",
+    "ios:build": "tauri ios build",
+    "icons": "tauri icon src-tauri/icons/icon.png"
+  },
+  "dependencies": {
+    "@radix-ui/react-slider": "^1.2.3",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-http": "^2.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.378.0",
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-virtuoso": "^4.12.5",
+    "tailwind-merge": "^2.6.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.2.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}

@@ -1,0 +1,32 @@
+[package]
+name = "dvibes"
+version = "4.0.0"
+description = "DVibes - music player with synced lyrics and offline mode"
+authors = ["DVibes Studio"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.77.2"
+default-run = "dvibes"
+
+[lib]
+# The lib target is what Android and iOS load; "rlib" keeps desktop builds working.
+name = "dvibes_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-http = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+tokio = { version = "1", features = ["fs", "io-util", "sync", "time"] }
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
