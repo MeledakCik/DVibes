@@ -51,7 +51,6 @@
     ],
     "publisher": "MeledakCik",
     "windows": {
-      "publisher": "MeledakCik",
       "webviewInstallMode": {
         "type": "downloadBootstrapper",
         "silent": true
