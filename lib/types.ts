@@ -1,4 +1,4 @@
-export type TrackSource = 'piped' | 'invidious' | 'innertube' | 'audius' | 'itunes' | 'local';
+export type TrackSource = 'piped' | 'invidious' | 'innertube' | 'audius' | 'itunes' | 'local' | 'ytdlp';
 
 export interface Track {
   /** Unique track id (11-char YouTube video id, `audius-*`, `itunes-*`, or `local-*`). */
