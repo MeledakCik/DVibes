@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "DVibes — Your Midnight Music Space",
+        "title": "DVibes \u2014 Your Midnight Music Space",
         "width": 1380,
         "height": 860,
         "minWidth": 380,
@@ -27,7 +27,11 @@
       "csp": null,
       "assetProtocol": {
         "enable": true,
-        "scope": ["$APPDATA/**", "$APPDATA/offline/**", "$APPDATA/stream_cache/**"]
+        "scope": [
+          "$APPDATA/**",
+          "$APPDATA/offline/**",
+          "$APPDATA/stream_cache/**"
+        ]
       }
     }
   },
@@ -35,8 +39,8 @@
     "active": true,
     "targets": "all",
     "category": "Music",
-    "copyright": "Copyright © 2026 DVibes",
-    "shortDescription": "DVibes — Your Midnight Music Space",
+    "copyright": "Copyright \u00a9 2026 DVibes",
+    "shortDescription": "DVibes \u2014 Your Midnight Music Space",
     "longDescription": "Music player with synced lyrics, local MP3/FLAC/LRC import, ambient soundscapes, and full offline mode for Windows, macOS, Android and iOS.",
     "icon": [
       "icons/32x32.png",
@@ -45,12 +49,31 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
+    "publisher": "MeledakCik",
     "windows": {
-      "webviewInstallMode": { "type": "downloadBootstrapper", "silent": true },
-      "nsis": { "installMode": "currentUser", "compression": "lzma" }
+      "publisher": "MeledakCik",
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "installMode": "currentUser",
+        "compression": "zlib",
+        "displayLanguageSelector": false
+      },
+      "wix": {
+        "language": "en-US"
+      }
     },
-    "macOS": { "minimumSystemVersion": "10.15" },
-    "iOS": { "minimumSystemVersion": "14.0" },
-    "android": { "minSdkVersion": 24 }
+    "macOS": {
+      "minimumSystemVersion": "10.15"
+    },
+    "iOS": {
+      "minimumSystemVersion": "14.0"
+    },
+    "android": {
+      "minSdkVersion": 24
+    },
+    "resources": []
   }
 }
