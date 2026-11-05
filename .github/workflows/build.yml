@@ -1,11 +1,12 @@
 name: Build DVibes (Windows, macOS, Android, iOS)
 
-# Jalankan manual: GitHub → Actions → "Build DVibes" → Run workflow
-# atau otomatis saat kamu push tag, mis. v4.2.0
 on:
   workflow_dispatch:
   push:
     tags: ['v*']
+
+permissions:
+  contents: write
 
 jobs:
   desktop:
@@ -23,7 +24,7 @@ jobs:
             args: '--target universal-apple-darwin'
     steps:
       - uses: actions/checkout@v4
-      - name: Clean leftover legacy files if overlaid on old repository
+      - name: Clean leftover legacy files
         shell: bash
         run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
@@ -39,21 +40,37 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npx tauri build ${{ matrix.args }}
-      - uses: actions/upload-artifact@v4
+
+      # 1. Kalau manual Run (workflow_dispatch) -> tetap private artifact buat testing
+      - name: Upload Artifact (Private, for testing)
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: actions/upload-artifact@v4
         with:
-          name: dvibes-${{ matrix.os }}
+          name: dvibes-${{ matrix.os }}-test
           path: |
-            src-tauri/target/release/bundle/nsis/*.exe
             src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
             src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
-          if-no-files-found: error
+          if-no-files-found: warn
+
+      # 2. Kalau push Tag v* -> jadi PUBLIC RELEASE (ini yang bikin gak private)
+      - name: Publish to Public Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            src-tauri/target/release/bundle/msi/*.msi
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   android:
     name: Android (.apk)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Clean leftover legacy files if overlaid on old repository
+      - name: Clean leftover legacy files
         run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
         with:
@@ -63,7 +80,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Install Android SDK Platform 34 & NDK 27 (without deprecated 'tools' package)
+      - name: Install Android SDK Platform 34 & NDK 27
         run: |
           export ANDROID_HOME="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
           echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
@@ -82,19 +99,30 @@ jobs:
       - run: npm run typecheck
       - name: Create Android project
         run: npx tauri android init --ci
-      - name: Add Android WAKE_LOCK & Media Playback permissions for screen-off playback
+      - name: Add Android WAKE_LOCK & Media Playback permissions
         run: |
           MANIFEST="src-tauri/gen/android/app/src/main/AndroidManifest.xml"
           if [ -f "$MANIFEST" ] && ! grep -q "android.permission.WAKE_LOCK" "$MANIFEST"; then
             sed -i 's|<uses-permission android:name="android.permission.INTERNET" />|<uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.WAKE_LOCK" />\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />|' "$MANIFEST"
           fi
-      - name: Build APK (debug-signed, langsung bisa di-install)
+      - name: Build APK (debug-signed)
         run: npx tauri android build --apk --debug
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload Artifact (Private, for testing)
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: actions/upload-artifact@v4
         with:
-          name: dvibes-android
+          name: dvibes-android-test
           path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
           if-no-files-found: error
+
+      - name: Publish to Public Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ios:
     name: iOS (.ipa)
@@ -102,7 +130,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Clean leftover legacy files if overlaid on old repository
+      - name: Clean leftover legacy files
         run: rm -rf legacy-vite server app/api dist tsconfig.tsbuildinfo lib/api/ytdlp-client.ts lib/api/ytdlp-direct.ts lib/api/route-utils.ts
       - uses: actions/setup-node@v4
         with:
@@ -116,7 +144,7 @@ jobs:
           workspaces: src-tauri
       - run: npm ci
       - run: npm run typecheck
-      - name: Import signing certificate + provisioning profile
+      - name: Import signing certificate
         env:
           IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
           IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
@@ -141,8 +169,19 @@ jobs:
       - run: npx tauri ios build --export-method app-store-connect
         env:
           APPLE_DEVELOPMENT_TEAM: ${{ secrets.IOS_DEVELOPMENT_TEAM }}
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload Artifact (Private, for testing)
+        if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: actions/upload-artifact@v4
         with:
-          name: dvibes-ios
+          name: dvibes-ios-test
           path: src-tauri/gen/apple/build/arm64/*.ipa
           if-no-files-found: error
+
+      - name: Publish to Public Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: src-tauri/gen/apple/build/arm64/*.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
